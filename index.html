@@ -26,12 +26,15 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         /* Hero Section */
@@ -41,6 +44,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
 
         .grid-background {
@@ -291,7 +295,7 @@
 
     <section id="expertise">
         <div class="container">
-            <h2 class="section-title">Mathematical Expertise</h2>
+            <h2 class="section-title">Expertise</h2>
             <div class="expertise-grid">
                 <div class="expertise-card">
                     <h3>Abstract Algebra</h3>
@@ -364,6 +368,7 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            createParticles();
         });
 
         class Particle {
