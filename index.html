@@ -3,384 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swastik Mitra - Mathematics & AI Research</title>
+    <title>Swastik Mitra - Quantitative Analyst & AI Researcher</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
-            --bg-primary: #0a001a;
-            --bg-secondary: #120029;
-            --text-primary: #ffffff;
-            --accent-1: #7b2fff;
-            --accent-2: #00ffcc;
-            --gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            --primary-color: #00ff9d;
+            --secondary-color: #0a192f;
+            --accent-color: #64ffda;
+            --text-color: #ccd6f6;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+            font-family: 'Courier New', monospace;
         }
 
-        html, body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
             line-height: 1.6;
-            position: relative;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .grid-background {
-            position: absolute;
+        #particles-canvas {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(var(--accent-1) 1px, transparent 1px),
-                linear-gradient(90deg, var(--accent-1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            background-color: var(--bg-primary);
-            opacity: 0.1;
-            z-index: 1;
+            z-index: -1;
         }
 
-        .hero-content {
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(10, 25, 47, 0.95);
             position: relative;
-            z-index: 2;
         }
 
-        .glowing-title {
-            font-size: 4rem;
-            font-weight: 700;
+        .name-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
             margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: var(--accent-2);
-            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            color: var(--accent-color);
         }
 
-        /* Navigation */
-        .nav {
-            position: fixed;
+        nav {
+            background: rgba(10, 25, 47, 0.95);
+            padding: 1rem;
+            position: sticky;
             top: 0;
-            width: 100%;
-            padding: 1.5rem 0;
-            background: rgba(10, 0, 26, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+            z-index: 100;
         }
 
-        .nav-content {
+        nav ul {
+            list-style: none;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-links {
-            display: flex;
+            justify-content: center;
             gap: 2rem;
         }
 
-        .nav-link {
-            color: var(--text-primary);
+        nav a {
+            color: var(--text-color);
             text-decoration: none;
-            position: relative;
-            padding: 0.5rem 0;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            transition: all 0.3s;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient);
-            transition: width 0.3s ease;
+        nav a:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
         }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Sections */
         section {
-            padding: 6rem 0;
-            position: relative;
-            z-index: 2;
+            padding: 4rem 20%;
+            background: rgba(10, 25, 47, 0.95);
+            margin: 2rem 0;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
         }
 
-        /* Expertise Grid */
-        .expertise-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .expertise-card {
-            background: rgba(123, 47, 255, 0.1);
-            border: 1px solid var(--accent-1);
-            padding: 2rem;
-            border-radius: 1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .expertise-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Library Section */
-        .library-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .library-card {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid var(--accent-2);
-            padding: 2rem;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .library-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
-        }
-
-        .library-link {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.8rem 1.5rem;
-            background: var(--gradient);
-            color: var(--bg-primary);
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: bold;
-            transition: transform 0.3s ease;
-        }
-
-        .library-link:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Social Links */
         .social-links {
             display: flex;
+            justify-content: center;
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .social-link {
-            color: var(--text-primary);
+            color: var(--accent-color);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--accent-1);
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: color 0.3s;
         }
 
         .social-link:hover {
-            background: var(--gradient);
-            color: var(--bg-primary);
-            border-color: transparent;
+            color: var(--primary-color);
         }
 
-        /* Animations */
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 10px rgba(123, 47, 255, 0.5);
-            }
-            100% {
-                text-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
-            }
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-
-            .glowing-title {
-                font-size: 2.5rem;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .social-links {
-                flex-wrap: wrap;
-            }
+        .book-card {
+            background: rgba(100, 255, 218, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent-color);
+            transition: transform 0.3s;
         }
 
-        /* Particle Canvas */
-        #particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-title {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .expertise-item {
+            background: rgba(100, 255, 218, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 25, 47, 0.95);
         }
     </style>
 </head>
 <body>
-    <canvas id="particle-canvas"></canvas>
-    <nav class="nav">
-        <div class="container nav-content">
-            <div class="nav-links">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#expertise" class="nav-link">Expertise</a>
-                <a href="#library" class="nav-link">Library</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-        </div>
+    <canvas id="particles-canvas"></canvas>
+    
+    <header>
+        <h1 class="name-title">Swastik Mitra</h1>
+        <p class="subtitle">Quantitative Analyst | Mathematics Graduate | AI Researcher</p>
+        <p class="subtitle">IIT Madras - Predictive Analytics and Artificial Intelligence</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#expertise">Expertise</a></li>
+            <li><a href="#library">Library</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
 
-    <section class="hero">
-        <div class="grid-background"></div>
-        <div class="container hero-content">
-            <h1 class="glowing-title">Swastik Mitra</h1>
-            <p class="subtitle">Quantitative Analyst | Mathematics Graduate | AI Researcher</p>
-        </div>
-    </section>
-
     <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <p>I'm a quantitative analyst and mathematics graduate, passionate about AI and advanced mathematical theory.</p>
-        </div>
+        <h2 class="section-title">About Me</h2>
+        <p>As a 22-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence at IIT Madras, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
+        <p>I am also deeply intrigued by Neuromorphic Computing and Biological Data Analysis, where I aim to merge technology with biology to solve complex challenges.</p>
     </section>
 
     <section id="expertise">
-        <div class="container">
-            <h2 class="section-title">Expertise</h2>
-            <div class="expertise-grid">
-                <div class="expertise-card"><h3>Abstract Algebra</h3></div>
-                <div class="expertise-card"><h3>Topology</h3></div>
-                <div class="expertise-card"><h3>Analysis</h3></div>
-                <div class="expertise-card"><h3>Differential Geometry</h3></div>
-                <div class="expertise-card"><h3>Machine Learning</h3></div>
-                <div class="expertise-card"><h3>Neuroscience</h3></div>
-            </div>
+        <h2 class="section-title">Mathematical Expertise</h2>
+        <div class="expertise-grid">
+            <div class="expertise-item">Abstract Algebra</div>
+            <div class="expertise-item">Topology</div>
+            <div class="expertise-item">Analysis</div>
+            <div class="expertise-item">Applied Mathematics</div>
+            <div class="expertise-item">Statistical Analysis</div>
+            <div class="expertise-item">Differential Geometry</div>
+            <div class="expertise-item">Quantum Computing</div>
+            <div class="expertise-item">AI/ML</div>
         </div>
     </section>
 
     <section id="library">
-        <div class="container">
-            <h2 class="section-title">Library</h2>
-            <div class="library-grid">
-                <div class="library-card"><h3>Research Papers</h3><p>Explore my collection of research papers on Mathematics and AI.</p><a href="#" class="library-link">Learn More</a></div>
-                <div class="library-card"><h3>Project Repositories</h3><p>Access my GitHub repositories on various mathematical and AI projects.</p><a href="#" class="library-link">Learn More</a></div>
-                <div class="library-card"><h3>Publications</h3><p>Discover my published work in journals and conference proceedings.</p><a href="#" class="library-link">Learn More</a></div>
+        <h2 class="section-title">Mathematical Library</h2>
+        <div class="library-grid">
+            <div class="book-card">
+                <h3 class="book-title">Abstract Algebra</h3>
+                <p class="book-author">by Dummit & Foote</p>
+            </div>
+            <div class="book-card">
+                <h3 class="book-title">Real Analysis</h3>
+                <p class="book-author">by Walter Rudin</p>
+            </div>
+            <div class="book-card">
+                <h3 class="book-title">Topology</h3>
+                <p class="book-author">by James Munkres</p>
+            </div>
+            <div class="book-card">
+                <h3 class="book-title">Differential Geometry</h3>
+                <p class="book-author">by Do Carmo</p>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <p>For inquiries, collaborations, or to discuss potential projects, feel free to reach out via email or connect with me on social media.</p>
-            <div class="social-links">
-                <a href="https://github.com/yourusername" class="social-link">GitHub</a>
-                <a href="https://www.linkedin.com/in/yourusername" class="social-link">LinkedIn</a>
-                <a href="mailto:your-email@example.com" class="social-link">Email</a>
-            </div>
+        <h2 class="section-title">Connect With Me</h2>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/swastik-mitra" class="social-link">LinkedIn</a>
+            <a href="https://github.com/swastik-mitra" class="social-link">GitHub</a>
+            <a href="https://twitter.com/swastik_mitra" class="social-link">Twitter</a>
+            <a href="https://instagram.com/swastik.mitra" class="social-link">Instagram</a>
+            <a href="https://youtube.com/@swastikmitra" class="social-link">YouTube</a>
         </div>
     </section>
 
+    <footer>
+        <p>© 2024 Swastik Mitra. All rights reserved.</p>
+    </footer>
+
     <script>
-        const canvas = document.getElementById('particle-canvas');
+        // Particle Animation
+        const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [], particleCount = 50;
+        
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            createParticles();
-        });
+        const particles = [];
+        const particleCount = 100;
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 4 + 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 2,
+                    y: (Math.random() - 0.5) * 2
+                };
+                this.radius = Math.random() * 2;
             }
 
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(123, 47, 255, 0.7)';
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#64ffda';
                 ctx.fill();
+            }
+
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                if (this.x < 0 || this.x > canvas.width) this.velocity.x *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.velocity.y *= -1;
+
+                this.draw();
             }
         }
 
-        function createParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
         }
 
-        function animateParticles() {
+        function animate() {
+            requestAnimationFrame(animate);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => { particle.update(); particle.draw(); });
-            requestAnimationFrame(animateParticles);
+            
+            particles.forEach(particle => {
+                particle.update();
+            });
         }
 
-        createParticles();
-        animateParticles();
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
