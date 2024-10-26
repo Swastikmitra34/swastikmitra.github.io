@@ -50,7 +50,6 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding-top: 5rem; /* Extra padding for navigation bar */
         }
 
         .grid-background {
@@ -147,93 +146,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Expertise Grid */
-        .expertise-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .expertise-card {
-            background: rgba(123, 47, 255, 0.1);
-            border: 1px solid var(--accent-1);
-            padding: 2rem;
-            border-radius: 1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .expertise-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Library Section */
-        .library-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .library-card {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid var(--accent-2);
-            padding: 2rem;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .library-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
-        }
-
-        .library-link {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.8rem 1.5rem;
-            background: var(--gradient);
-            color: var(--bg-primary);
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: bold;
-            transition: transform 0.3s ease;
-        }
-
-        .library-link:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Social Links */
-        .social-links {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--accent-1);
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--gradient);
-            color: var(--bg-primary);
-            border-color: transparent;
-        }
-
-        /* Animations */
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 10px rgba(123, 47, 255, 0.5);
-            }
-            100% {
-                text-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
-            }
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -251,9 +163,15 @@
             .nav-links {
                 display: none;
             }
+        }
 
-            .social-links {
-                flex-wrap: wrap;
+        /* Animations */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(123, 47, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
             }
         }
     </style>
@@ -280,21 +198,65 @@
         </div>
     </section>
 
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <p>As a 22-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence at IIT Madras, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
-            <p>I am also deeply intrigued by Neuromorphic Computing and Biological Data Analysis, where I aim to merge technology with biology to solve complex challenges.</p>
-        </div>
-    </section>
+    <!-- Particle Animation Script -->
+    <script>
+        const canvas = document.getElementById("particle-canvas");
+        const ctx = canvas.getContext("2d");
 
-    <section id="expertise">
-        <div class="container">
-            <h2 class="section-title">Mathematical Expertise</h2>
-            <div class="expertise-grid">
-                <div class="expertise-card">
-                    <h3>Abstract Algebra</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Topology</h3>
-                </div
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Handle window resizing
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();  // Reinitialize particles on resize
+        });
+
+        const particles = [];
+        const particleCount = 100; // Adjust number of particles as needed
+
+        // Initialize particle properties
+        function initParticles() {
+            particles.length = 0; // Clear particles on reinitialization
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 3 + 1,
+                    speedX: Math.random() * 1.5 - 0.75,
+                    speedY: Math.random() * 1.5 - 0.75,
+                    color: `rgba(123, 47, 255, ${Math.random() * 0.5 + 0.3})`
+                });
+            }
+        }
+
+        // Animation function
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+
+                // Reposition particles if they move out of bounds
+                if (particle.x < 0 || particle.x > canvas.width) particle.speedX = -particle.speedX;
+                if (particle.y < 0 || particle.y > canvas.height) particle.speedY = -particle.speedY;
+
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+                ctx.closePath();
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Initialize and start animation
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
