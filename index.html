@@ -21,11 +21,13 @@
             font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
         }
 
-        body {
+        html, body {
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
             position: relative;
         }
 
@@ -131,6 +133,7 @@
         section {
             padding: 6rem 0;
             position: relative;
+            z-index: 2;
         }
 
         .section-title {
@@ -259,7 +262,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
     </style>
 </head>
@@ -281,15 +284,13 @@
         <div class="container hero-content">
             <h1 class="glowing-title">Swastik Mitra</h1>
             <p class="subtitle">Quantitative Analyst | Mathematics Graduate | AI Researcher</p>
-            <p class="subtitle">IIT Madras - Predictive Analytics and Artificial Intelligence</p>
         </div>
     </section>
 
     <section id="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <p>As a 22-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence at IIT Madras, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
-            <p>I am also deeply intrigued by Neuromorphic Computing and Biological Data Analysis, where I aim to merge technology with biology to solve complex challenges.</p>
+            <p>I'm a quantitative analyst and mathematics graduate, passionate about AI and advanced mathematical theory.</p>
         </div>
     </section>
 
@@ -297,24 +298,12 @@
         <div class="container">
             <h2 class="section-title">Expertise</h2>
             <div class="expertise-grid">
-                <div class="expertise-card">
-                    <h3>Abstract Algebra</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Topology</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Analysis</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Differential Geometry</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Machine Learning</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Neuroscience</h3>
-                </div>
+                <div class="expertise-card"><h3>Abstract Algebra</h3></div>
+                <div class="expertise-card"><h3>Topology</h3></div>
+                <div class="expertise-card"><h3>Analysis</h3></div>
+                <div class="expertise-card"><h3>Differential Geometry</h3></div>
+                <div class="expertise-card"><h3>Machine Learning</h3></div>
+                <div class="expertise-card"><h3>Neuroscience</h3></div>
             </div>
         </div>
     </section>
@@ -323,21 +312,9 @@
         <div class="container">
             <h2 class="section-title">Library</h2>
             <div class="library-grid">
-                <div class="library-card">
-                    <h3>Research Papers</h3>
-                    <p>Explore my collection of research papers on Mathematics and Artificial Intelligence.</p>
-                    <a href="#" class="library-link">Learn More</a>
-                </div>
-                <div class="library-card">
-                    <h3>Project Repositories</h3>
-                    <p>Access my GitHub repositories on various mathematical and AI projects.</p>
-                    <a href="#" class="library-link">Learn More</a>
-                </div>
-                <div class="library-card">
-                    <h3>Publications</h3>
-                    <p>Discover my published work in journals and conference proceedings.</p>
-                    <a href="#" class="library-link">Learn More</a>
-                </div>
+                <div class="library-card"><h3>Research Papers</h3><p>Explore my collection of research papers on Mathematics and AI.</p><a href="#" class="library-link">Learn More</a></div>
+                <div class="library-card"><h3>Project Repositories</h3><p>Access my GitHub repositories on various mathematical and AI projects.</p><a href="#" class="library-link">Learn More</a></div>
+                <div class="library-card"><h3>Publications</h3><p>Discover my published work in journals and conference proceedings.</p><a href="#" class="library-link">Learn More</a></div>
             </div>
         </div>
     </section>
@@ -355,13 +332,9 @@
     </section>
 
     <script>
-        // Particle effect
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-
-        let particles = [];
-        let particleCount = 50;
-
+        let particles = [], particleCount = 50;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
@@ -383,7 +356,6 @@
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
             }
@@ -398,17 +370,12 @@
 
         function createParticles() {
             particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
+            particles.forEach(particle => { particle.update(); particle.draw(); });
             requestAnimationFrame(animateParticles);
         }
 
