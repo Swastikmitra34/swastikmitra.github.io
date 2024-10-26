@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swastik Mitra - Mathematics & AI Research</title>
+    <style>
+        :root {
+            --bg-primary: #0a001a;
+            --bg-secondary: #120029;
+            --text-primary: #ffffff;
+            --accent-1: #7b2fff;
+            --accent-2: #00ffcc;
+            --gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--accent-1) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent-1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-color: var(--bg-primary);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .glowing-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-2);
+            margin-bottom: 2rem;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            background: rgba(10, 0, 26, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Expertise Grid */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .expertise-card {
+            background: rgba(123, 47, 255, 0.1);
+            border: 1px solid var(--accent-1);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Library Section */
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .library-card {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--accent-2);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .library-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
+        }
+
+        .library-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .library-link:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent-1);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border-color: transparent;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(123, 47, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .glowing-title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container nav-content">
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#expertise" class="nav-link">Expertise</a>
+                <a href="#library" class="nav-link">Library</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="grid-background"></div>
+        <div class="container hero-content">
+            <h1 class="glowing-title">Swastik Mitra</h1>
+            <p class="subtitle">Quantitative Analyst | Mathematics Graduate | AI Researcher</p>
+            <p class="subtitle">IIT Madras - Predictive Analytics and Artificial Intelligence</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p>As a 22-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence at IIT Madras, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
+            <p>I am also deeply intrigued by Neuromorphic Computing and Biological Data Analysis, where I aim to merge technology with biology to solve complex challenges.</p>
+        </div>
+    </section>
+
+    <section id="expertise">
+        <div class="container">
+            <h2 class="section-title">Mathematical Expertise</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>Abstract Algebra</h3>
+                </div>
+                <div class="expertise-card">
+                    <h3>Topology</h3>
+                </div>
+                <div class="expertise-card">
+                    <h3>Analysis</h3>
+                </div>
+                <div class="expertise-card">
+                    <h3>Applied Mathematics</h3>
+                </div>
+                <div class="expertise-card">
+                    <h3>Statistical Analysis</h3>
+                </div>
+                <div class="expertise-card">
+                    <h3>Differential Geometry</h3>
+                </div>
+                <div class="expertise-card">
+                    <h3>Quantum Computing</h3>
+                </div>
+                <div class="expertise-card">
+                    <h3>AI/ML</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="library">
+        <div class="container">
+            <h2 class="section-title">Mathematical Library</h2>
+            <div class="library-grid">
+                <div class="library-card">
+                    <h3>Research Papers & Books</h3>
+                    <p>Access my curated collection of mathematical texts and research papers.</p>
+                    <a href="https://drive.google.com/drive/folders/1ZmQ-vh0QMYSKWBIIwNT3SUgYsoKCFj4R" target="_blank" class="library-link">Access Library</a>
+                </div>
+                <div class="library-card">
+                    <h3>Personal Notes</h3>
+                    <p>Mathematical notes and solutions (Coming Soon)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Connect With Me</h2>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/swastik-mitra" class="social-link">LinkedIn</a>
+                <a href="https://github.com/swastik-mitra" class="social-link">GitHub</a>
+                <a href="https://twitter.com/swastik_mitra" class="social-link">Twitter</a>
+                <a href="https://instagram.com/swastik.mitra" class="social-link">Instagram</a>
+                <a href="https://youtube.com/@swastikmitra" class="social-link">YouTube</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
