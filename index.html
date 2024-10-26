@@ -1,1 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swastik Mitra - Quantitative Analyst & AI Researcher</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #00ff9d;
+            --secondary-color: #0a192f;
+            --accent-color: #64ffda;
+            --text-color: #ccd6f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(10, 25, 47, 0.95);
+            position: relative;
+        }
+
+        .name-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        nav {
+            background: rgba(10, 25, 47, 0.95);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        section {
+            padding: 4rem 20%;
+            background: rgba(10, 25, 47, 0.95);
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--primary-color);
+        }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .book-card {
+            background: rgba(100, 255, 218, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-title {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .expertise-item {
+            background: rgba(100, 255, 218, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 25, 47, 0.95);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    
+    <header>
+        <h1 class="name-title">Swastik Mitra</h1>
+        <p class="subtitle">Quantitative Analyst | Mathematics Graduate | AI Researcher</p>
+        <p class="subtitle">IIT Madras - Predictive Analytics and Artificial Intelligence</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#expertise">Expertise</a></li>
+            <li><a href="#library">Library</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <p>As a 22-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence at IIT Madras, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
+        <p>I am also deeply intrigued by Neuromorphic Computing and Biological Data Analysis, where I aim to merge technology with biology to solve complex challenges.</p>
+    </section>
+
+    <section id="expertise">
+        <h2 class="section-title">Mathematical Expertise</h2>
+        <div class="expertise-grid">
+            <div class="expertise-item">Abstract Algebra</div>
+            <div class="expertise-item">Topology</div>
+            <div class="expertise-item">Real Analysis</div>
+            <div class="expertise-item">Linear Algebra</div>
+            <div class="expertise-item">Classical Algebra</div>
+            <div class="expertise-item">Applied Mathematics</div>
+            <div class="expertise-item">Statistical Analysis</div>
+            <div class="expertise-item">Differential Geometry</div>
+            <div class="expertise-item">Quantum Computing</div>
+            <div class="expertise-item">AI/ML</div>
+            <div class="expertise-item">Complex Analysis</div>
+            <div class="expertise-item">Metric Space</div>
+            <div class="expertise-item">Elementary Set Theory</div>
+            <div class="expertise-item">Basics of Measure Theory</div>
+            <div class="expertise-item">Differential Equations</div>
+            <div class="expertise-item">Numerical Analysis</div>
+            <div class="expertise-item">Functional Analysis</div>
+            <div class="expertise-item">Graph Theory</div>
+            <div class="expertise-item">Combinatorics</div>
+        </div>
+    </section>
+
+    <section id="library">
+        <h2 class="section-title">Mathematical Library</h2>
+        <div class="library-grid">
+            <div class="book-card">
+                <h3 class="book-title">Google Documents Library</h3>
+                <p class="book-author"><a href="https://drive.google.com/drive/folders/1ZmQ-vh0QMYSKWBIIwNT3SUgYsoKCFj4R?usp=drive_link" class="social-link">Access my PDFs here</a></p>
+            </div>
+            <div class="book-card">
+                <h3 class="book-title">Math Notes</h3>
+                <p class="book-author">Upload coming soon!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Connect With Me</h2>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/swastik-mitra" class="social-link">LinkedIn</a>
+            <a href="https://github.com/swastik-mitra" class="social-link">GitHub</a>
+            <a href="https://twitter.com/swastik_mitra" class="social-link">Twitter</a>
+            <a href="https://instagram.com/swastik.mitra" class="social-link">Instagram</a>
+            <a href="https://youtube.com/@swastikmitra" class="social-link">YouTube</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Swastik Mitra. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Particle Animation
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.size > 0.2) this.size -= 0.1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 255, 157, 1)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            for (let i = 0; i < 200; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                particlesArray.push(new Particle(x, y));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach((particle) => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
 
