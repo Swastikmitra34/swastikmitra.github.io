@@ -33,8 +33,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%
-            z-index: -1;    
+            height: 100%;
+            z-index: -1;
+        }
 
         .container {
             max-width: 1200px;
@@ -49,6 +50,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding-top: 5rem; /* Extra padding for navigation bar */
         }
 
         .grid-background {
@@ -259,7 +261,6 @@
 <body>
     <canvas id="particle-canvas"></canvas>
     <nav class="nav">
-        
         <div class="container nav-content">
             <div class="nav-links">
                 <a href="#about" class="nav-link">About</a>
@@ -296,120 +297,4 @@
                 </div>
                 <div class="expertise-card">
                     <h3>Topology</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Analysis</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Applied Mathematics</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Statistical Analysis</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Differential Geometry</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>Quantum Computing</h3>
-                </div>
-                <div class="expertise-card">
-                    <h3>AI/ML</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="library">
-        <div class="container">
-            <h2 class="section-title">Mathematical Library</h2>
-            <div class="library-grid">
-                <div class="library-card">
-                    <h3>Research Papers & Books</h3>
-                    <p>Access my curated collection of mathematical texts and research papers.</p>
-                    <a href="https://drive.google.com/drive/folders/1ZmQ-vh0QMYSKWBIIwNT3SUgYsoKCFj4R" target="_blank" class="library-link">Access Library</a>
-                </div>
-                <div class="library-card">
-                    <h3>Personal Notes</h3>
-                    <p>Mathematical notes and solutions (Coming Soon)</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Connect With Me</h2>
-            <div class="social-links">
-                <a href="https://linkedin.com/in/swastik-mitra" class="social-link">LinkedIn</a>
-                <a href="https://github.com/swastik-mitra" class="social-link">GitHub</a>
-                <a href="https://twitter.com/swastik_mitra" class="social-link">Twitter</a>
-                <a href="https://instagram.com/swastik.mitra" class="social-link">Instagram</a>
-                <a href="https://youtube.com/@swastikmitra" class="social-link">YouTube</a>
-            </div>
-        </div>
-    </section>
-    <script>
-        // Particle Animation
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const particleCount = 100;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 2,
-                    y: (Math.random() - 0.5) * 2
-                };
-                this.radius = Math.random() * 2;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#64ffda';
-                ctx.fill();
-            }
-
-            update() {
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-
-                if (this.x < 0 || this.x > canvas.width) this.velocity.x *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.velocity.y *= -1;
-
-                this.draw();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                particle.update();
-            });
-        }
-
-        init();
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-    </script>
-</body>
-</html>
+                </div
