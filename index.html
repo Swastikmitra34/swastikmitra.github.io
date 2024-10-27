@@ -175,6 +175,28 @@
             --secondary-color: #1e1e2f;
             --text-color: #ffffff;
         }
+        
+#question-input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+#question-form button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#question-form button:hover {
+    background: var(--accent-color);
+}
 
         #theme-toggle {
             position: fixed;
@@ -270,7 +292,16 @@
         </div>
     </section>
 
-    <footer>
+     <section id="questions">
+    <h2 class="section-title">Ask Me Your Math Questions</h2>
+    <form id="question-form">
+        <textarea id="question-input" rows="5" placeholder="Type your math question here..." required></textarea>
+        <button type="submit">Submit Question</button>
+    </form>
+    <div id="response" style="margin-top: 1rem;"></div>
+    </section>
+
+     <footer>
         <p>&copy; 2024 Swastik Mitra. All rights reserved.</p>
     </footer>
 
