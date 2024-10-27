@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swastik Mitra - Quantitative Analyst & AI Researcher</title>
+    <title>Swastik Mitra -Math grad , Quantitative Analyst & AI Researcher </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
@@ -40,6 +40,12 @@
             text-align: center;
             background: rgba(10, 25, 47, 0.95);
             position: relative;
+        }
+        #cube {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -20%);
         }
 
         .name-title {
@@ -162,15 +168,34 @@
             padding: 2rem;
             background: rgba(10, 25, 47, 0.95);
         }
+         /* Dark Mode */
+        .dark-theme {
+            --primary-color: #00bfff;
+            --secondary-color: #1e1e2f;
+            --text-color: #ffffff;
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <canvas id="particles-canvas"></canvas>
-    
+    <button id="theme-toggle">Toggle Dark Mode</button>
+
     <header>
+        <div id="cube"></div>
         <h1 class="name-title">Swastik Mitra</h1>
         <p class="subtitle">Quantitative Analyst | Mathematics Graduate | AI Researcher</p>
-        <p class="subtitle">EDUCATION- IIT Madras , WBSU</p>
+        <p class="subtitle">student of IIT Madras , WBSU</p>
     </header>
 
     <nav>
@@ -226,6 +251,12 @@
             </div>
         </div>
     </section>
+    
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <p>My upcoming projects will be showcased here soon!</p>
+    </section>
+
 
     <section id="contact">
         <h2 class="section-title">Connect With Me</h2>
@@ -302,5 +333,37 @@
             animate();
         };
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('cube').appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff9d, wireframe: true });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+    camera.position.z = 5;
+
+    function animateCube() {
+        requestAnimationFrame(animateCube);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+    animateCube();
+</script>
+<script>
+    const body = document.body;
+    const toggleButton = document.getElementById('theme-toggle');
+
+    toggleButton.addEventListener('click', () => {
+        body.classList.toggle('dark-theme');
+        toggleButton.innerText = body.classList.contains('dark-theme') ? 'Light Mode' : 'Dark Mode';
+    });
+</script>
+
 </body>
 </html>
