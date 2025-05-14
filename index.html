@@ -1,33 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swastik Mitra -Math grad , Quantitative Analyst & AI Researcher </title>
+    <title>Godelomniverse</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
     <style>
+        /* Global Styles */
         :root {
-            --primary-color: #00ff9d;
-            --secondary-color: #0a192f;
-            --accent-color: #64ffda;
-            --text-color: #ccd6f6;
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #2962ff;
+            --text-color: #f5f5f5;
+            --background-color: #121212;
+            --card-background: rgba(25, 25, 25, 0.85);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--secondary-color);
+            background-color: var(--background-color);
             color: var(--text-color);
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        #particles-canvas {
+        /* Canvas for particle effect */
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -36,375 +40,470 @@
             z-index: -1;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
         header {
-            padding: 2rem;
-            text-align: center;
-            background: rgba(10, 25, 47, 0.95);
-            position: relative;
-        }
-        #cube {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -20%);
-        }
-
-        .name-title {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--accent-color);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         nav {
-            background: rgba(10, 25, 47, 0.95);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav ul {
-            list-style: none;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            align-items: center;
         }
 
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid transparent;
-            transition: all 0.3s;
-        }
-
-        nav a:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        section {
-            padding: 4rem 20%;
-            background: rgba(10, 25, 47, 0.95);
-            margin: 2rem 0;
-        }
-
-        .section-title {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
             color: var(--accent-color);
             text-decoration: none;
-            font-size: 1.1rem;
+        }
+        
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-color);
+        }
+        
+        .social-icon a {
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
-        .social-link:hover {
-            color: var(--primary-color);
-        }
-
-        .library-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .book-card {
-            background: rgba(100, 255, 218, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--accent-color);
-            transition: transform 0.3s;
-        }
-
-        .book-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .book-title {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .book-author {
+        .nav-links a:hover {
             color: var(--accent-color);
-            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            gap: 50px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Expertise Section */
+        .expertise {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--accent-color);
         }
 
         .expertise-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
 
-        .expertise-item {
-            background: rgba(100, 255, 218, 0.1);
-            padding: 1rem;
-            border-radius: 4px;
-            text-align: center;
+        .expertise-card {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(10, 25, 47, 0.95);
+        .expertise-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
-         /* Dark Mode */
-        .dark-theme {
-            --primary-color: #00bfff;
-            --secondary-color: #1e1e2f;
-            --text-color: #ffffff;
+
+        .expertise-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
         }
-        
-#question-input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border: 1px solid var(--accent-color);
-    border-radius: 4px;
-}
 
-#question-form button {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: var(--primary-color);
-    color: var(--secondary-color);
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s;
-}
+        .expertise-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-#question-form button:hover {
-    background: var(--accent-color);
-}
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
 
-     html {
-    scroll-behavior: smooth;
-}
-   
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
 
-        #theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.5rem;
-            background: var(--primary-color);
-            color: var(--secondary-color);
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            color: white;
             border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 1rem;
             cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 50px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <canvas id="particles-canvas"></canvas>
-    <button id="theme-toggle">Toggle Dark Mode</button>
+    <div id="canvas-container"></div>
 
     <header>
-        <div id="cube"></div>
-        <h1 class="name-title">Swastik Mitra</h1>
-        <p class="subtitle">Quantitative Analyst | Mathematics Graduate | AI Researcher| Budding entrepreneur </p>
-        <p class="subtitle">student of IIT Madras , WBSU</p>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Godelomniverse</a>
+                <div class="nav-links">
+                    <a href="#expertise">Expertise</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#expertise">Expertise</a></li>
-            <li><a href="#library">Library</a></li>
-            <li><a href="#library">projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#questions">questions</a></li>
-        </ul>
-    </nav>
-
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <p>As a 22-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence at IIT Madras, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
-        <p>I am also deeply intrigued by Neuromorphic Computing and Biological Data Analysis, where I aim to merge technology with biology to solve complex challenges.</p>
-    </section>
-
-    <section id="expertise">
-        <h2 class="section-title">Mathematical Expertise</h2>
-        <div class="expertise-grid">
-            <div class="expertise-item">Abstract Algebra</div>
-            <div class="expertise-item">Topology</div>
-            <div class="expertise-item">Real Analysis</div>
-            <div class="expertise-item">Linear Algebra</div>
-            <div class="expertise-item">Classical Algebra</div>
-            <div class="expertise-item">Applied Mathematics</div>
-            <div class="expertise-item">Statistical Analysis</div>
-            <div class="expertise-item">Differential Geometry</div>
-            <div class="expertise-item">Quantum Computing</div>
-            <div class="expertise-item">AI/ML</div>
-            <div class="expertise-item">Complex Analysis</div>
-            <div class="expertise-item">Metric Space</div>
-            <div class="expertise-item">Elementary Set Theory</div>
-            <div class="expertise-item">Basics of Measure Theory</div>
-            <div class="expertise-item">Differential Equations</div>
-            <div class="expertise-item">Numerical Analysis</div>
-            <div class="expertise-item">Functional Analysis</div>
-            <div class="expertise-item">Graph Theory</div>
-            <div class="expertise-item">Combinatorics</div>
-        </div>
-    </section>
-
-    <section id="library">
-        <h2 class="section-title">Mathematical Library</h2>
-        <div class="library-grid">
-            <div class="book-card">
-                <h3 class="book-title">Google Documents Library</h3>
-                <p class="book-author"><a href="https://drive.google.com/drive/folders/1ZmQ-vh0QMYSKWBIIwNT3SUgYsoKCFj4R?usp=drive_link" class="social-link">Access my PDFs here</a></p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Exploring the Frontiers of Mathematics & AI</h1>
+                <p>A journey through Artificial Intelligence, Quantum Computing, Pure Mathematics, and Statistical Analysis</p>
+                <a href="#expertise" class="cta-button">Explore My Work</a>
             </div>
-            <div class="book-card">
-                <h3 class="book-title">Math Notes</h3>
-                <p class="book-author">Upload coming soon!</p>
+            <div class="hero-image">
+                <img src="/api/placeholder/400/400" alt="Professional portrait">
             </div>
         </div>
     </section>
-    
-    <section id="projects">
-        <h2 class="section-title">Projects</h2>
-        <p>My upcoming projects will be showcased here soon!</p>
-    </section>
 
-
-    <section id="contact">
-        <h2 class="section-title">Connect With Me</h2>
-        <div class="social-links">
-            <a href="https://linkedin.com/in/swastik-mitra" class="social-link">LinkedIn</a>
-            <a href="https://github.com/Swastikmitra34" class="social-link">GitHub</a>
-            <a href="https://twitter.com/swastik_mitra" class="social-link">Twitter</a>
-            <a href="https://instagram.com/swastik.mitra" class="social-link">Instagram</a>
-            <a href="https://youtube.com/@swastikmitra" class="social-link">YouTube</a>
+    <section id="expertise" class="expertise">
+        <div class="container">
+            <h2 class="section-title">Areas of Expertise</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>Artificial Intelligence</h3>
+                    <p>Exploring predictive analytics, machine learning models, and neural networks to solve complex problems and create intelligent systems.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Quantum Computing</h3>
+                    <p>Investigating quantum algorithms, quantum information theory, and their applications to computational problems beyond classical computing.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Pure Mathematics</h3>
+                    <p>Specializing in Abstract Algebra, Topology, Analysis, and Geometry with focus on theoretical foundations and mathematical structures.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Statistical Analysis</h3>
+                    <p>Developing statistical models for data analysis, hypothesis testing, and predictive modeling across various domains including biostatistics.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-     <section id="questions">
-    <h2 class="section-title">Ask Me Your Math Questions</h2>
-    <form id="question-form">
-        <textarea id="question-input" rows="5" placeholder="Type your math question here..." required></textarea>
-        <button type="submit">Submit Question</button>
-    </form>
-    <div id="response" style="margin-top: 1rem;"></div>
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>As a 23-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
+                    <p>I am also deeply intrigued by Biostatistics, where I aim to merge technology with biology to solve complex challenges. As a passionate math enthusiast with good hold in core fields such as Abstract Algebra, Topology, Analysis, Applied Mathematics, Statistical Analysis, and Geometry, I thrive on solving complex problems through mathematical thinking and visualization.</p>
+                    <p>My academic background enables me to approach challenges from both theoretical and applied perspectives, ensuring a robust understanding of advanced mathematical concepts. Driven by a desire to use my analytical and problem-solving skills, I am constantly exploring innovative solutions to tackle technological and scientific problems.</p>
+                    <p>With a solid foundation in math and a growing expertise in AI, I am committed to contributing to impactful advancements in both academia and industry.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-     <footer>
-        <p>&copy; 2024 Swastik Mitra. All rights reserved.</p>
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Godelomniverse. All rights reserved.</p>
+        </div>
     </footer>
 
     <script>
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        
+        // Canvas setup for particle effect
+        const canvas = document.createElement('canvas');
+        document.getElementById('canvas-container').appendChild(canvas);
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        let particlesArray = [];
+        // Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
 
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 3 - 1.5;
-                this.speedY = Math.random() * 3 - 1.5;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
 
-                if (this.size > 0.2) this.size -= 0.1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(0, 255, 157, 1)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        // Particle system
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        
+        const posArray = new Float32Array(particlesCount * 3);
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 15;
         }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x2962ff,
+            transparent: true,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
 
-        function init() {
-            particlesArray = [];
-            for (let i = 0; i < 200; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                particlesArray.push(new Particle(x, y));
-            }
-        }
+        // Camera position
+        camera.position.z = 5;
 
+        // Animation
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach((particle) => {
-                particle.update();
-                particle.draw();
-            });
             requestAnimationFrame(animate);
+            
+            particlesMesh.rotation.x += 0.0005;
+            particlesMesh.rotation.y += 0.0005;
+            
+            renderer.render(scene, camera);
         }
 
-        window.addEventListener('resize', function() {
+        animate();
+
+        // Resize event
+        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            init();
+            
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        window.onload = function() {
-            init();
-            animate();
-        };
+        // Add mouse interaction
+        document.addEventListener('mousemove', (event) => {
+            const mouseX = event.clientX / window.innerWidth - 0.5;
+            const mouseY = event.clientY / window.innerHeight - 0.5;
+            
+            particlesMesh.rotation.y = mouseX * 0.5;
+            particlesMesh.rotation.x = mouseY * 0.5;
+        });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('cube').appendChild(renderer.domElement);
-
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff9d, wireframe: true });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    camera.position.z = 5;
-
-    function animateCube() {
-        requestAnimationFrame(animateCube);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render(scene, camera);
-    }
-    animateCube();
-</script>
-<script>
-    const body = document.body;
-    const toggleButton = document.getElementById('theme-toggle');
-
-    toggleButton.addEventListener('click', () => {
-        body.classList.toggle('dark-theme');
-        toggleButton.innerText = body.classList.contains('dark-theme') ? 'Light Mode' : 'Dark Mode';
-    });
-</script>
-
 </body>
 </html>
-
-
