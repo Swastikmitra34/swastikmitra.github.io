@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+</section><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,158 +9,106 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
         /* Global Styles */
-        <style>
-    /* Theme Colors */
-    :root {
-      --primary-color: #1a237e;
-      --secondary-color: #0d47a1;
-      --accent-color: #2962ff;
-      --text-color: #f5f5f5;
-      --background-color: #121212;
-      --card-background: rgba(25, 25, 25, 0.85);
-    }
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #2962ff;
+            --text-color: #f5f5f5;
+            --background-color: #121212;
+            --card-background: rgba(25, 25, 25, 0.85);
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    body {
-      background-color: var(--background-color);
-      color: var(--text-color);
-      overflow-x: hidden;
-    }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
 
-    /* Canvas Background */
-    #canvas-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
+        /* Canvas for particle effect */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    /* Header */
-    header {
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      z-index: 10;
-    }
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Logo */
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      text-decoration: none;
-    }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .logo-image {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .logo-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .logo-text {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent-color);
-      text-decoration: none;
-    }
-
-    /* Navigation Links */
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--text-color);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-color);
-    }
-
-    /* Social Icons */
-    .social-icons {
-      display: flex;
-      gap: 15px;
-    }
-
-    .social-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    .social-icon:hover {
-      transform: translateY(-3px);
-      background-color: var(--accent-color);
-    }
-
-    .social-icon i {
-      color: #fff;
-      font-size: 1.2rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-      }
-
-      .nav-links {
-        gap: 20px;
-      }
-
-      .social-icons {
-        margin-top: 10px;
-      }
-    }
-
-  <!-- Optional Particle Background -->
-  <div id="canvas-container"></div>
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-color);
+        }
+        
+        .social-icon a {
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
 
         .nav-links {
             display: flex;
@@ -461,35 +409,78 @@
 </head>
 <body>
     <div id="canvas-container"></div>
-  <header>
-    <div class="container">
-      <nav>
-        <!-- Logo Section -->
-        <a href="#" class="logo-container">
-          <div class="logo-image">
-           <img src="assets/logo.png" alt="Godel Omniverse Logo" style="width: 40px;">
-          </div>
-          <span class="logo-text">Godelomniverse</span>
-        </a>
 
-        <!-- Navigation Links -->
-        <div class="nav-links">
-          <a href="#expertise">Expertise</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo-image">
+                        <!-- Logo placeholder - replace with your actual logo -->
+                        <img id="site-logo" src="/api/placeholder/50/50" alt="Godelomniverse Logo">
+                    </div>
+                    <a href="#" class="logo">Godelomniverse</a>
+                </div>
+                <div class="nav-links">
+                    <a href="#expertise">Expertise</a>
+                    <a href="#resources">Resources</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="social-icons">
+                    <div class="social-icon">
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </nav>
         </div>
+    </header>
 
-        <!-- Social Media -->
-        <div class="social-icons">
-          <div class="social-icon"><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></div>
-          <div class="social-icon"><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></div>
-          <div class="social-icon"><a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a></div>
-          <div class="social-icon"><a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i></a></div>
+      <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>As a 23-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
+                    <p>I am also deeply intrigued by Biostatistics, where I aim to merge technology with biology to solve complex challenges. As a passionate math enthusiast with good hold in core fields such as Abstract Algebra, Topology, Analysis, Applied Mathematics, Statistical Analysis, and Geometry, I thrive on solving complex problems through mathematical thinking and visualization.</p>
+                    <p>My academic background enables me to approach challenges from both theoretical and applied perspectives, ensuring a robust understanding of advanced mathematical concepts. Driven by a desire to use my analytical and problem-solving skills, I am constantly exploring innovative solutions to tackle technological and scientific problems.</p>
+                    <p>With a solid foundation in math and a growing expertise in AI, I am committed to contributing to impactful advancements in both academia and industry.</p>
+                </div>
+            </div>
         </div>
-      </nav>
-    </div>
-  </header>
-
+    </section>
+    
+    <section id="resources" class="resources">
+        <div class="container">
+            <h2 class="section-title">Resources</h2>
+            <div class="resources-container">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Mathematics PDF Notes</h3>
+                    <p>Access my comprehensive collection of mathematical resources covering Abstract Algebra, Topology, Analysis, Quantum Computing, and more.</p>
+                    <a href="#" class="resource-button" id="math-pdf-link">Access Notes</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <h3>Handwritten Notes</h3>
+                    <p>Browse through my personal handwritten notes on various mathematical and computational topics with detailed derivations and explanations.</p>
+                    <a href="#" class="resource-button" id="handwritten-notes-link">Access Notes</a>
+                </div>
+            </div>
+        </div>
 
     <section class="hero">
         <div class="container">
@@ -541,30 +532,6 @@
             </div>
         </div>
     </section>
-
-  <section id="resources" class="resources">
-        <div class="container">
-            <h2 class="section-title">Resources</h2>
-            <div class="resources-container">
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <h3>Mathematics PDF Notes</h3>
-                    <p>Access my comprehensive collection of mathematical resources covering Abstract Algebra, Topology, Analysis, Quantum Computing, and more.</p>
-                    <a href="#" class="resource-button" id="math-pdf-link">Access Notes</a>
-                </div>
-                
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <i class="fas fa-pencil-alt"></i>
-                    </div>
-                    <h3>Handwritten Notes</h3>
-                    <p>Browse through my personal handwritten notes on various mathematical and computational topics with detailed derivations and explanations.</p>
-                    <a href="#" class="resource-button" id="handwritten-notes-link">Access Notes</a>
-                </div>
-            </div>
-        </div>
 
     <section id="contact" class="contact">
         <div class="container">
