@@ -1,225 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Godelomniverse</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Font Awesome for Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-  <style>
-    /* Base styles omitted for brevity, continue from your previous styles */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godelomniverse</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #2962ff;
+            --text-color: #f5f5f5;
+            --background-color: #121212;
+            --card-background: rgba(25, 25, 25, 0.85);
+        }
 
-    body {
-      margin: 0;
-      background: #0d1117;
-      color: #e1e8ed;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    #canvas-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-    }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
 
-    header {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 15px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-      position: relative;
-    }
+        /* Canvas for particle effect */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .logo-image {
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
-    }
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    .logo-image img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .logo {
-      font-size: 1.8em;
-      font-weight: bold;
-      color: #64b5f6;
-      text-decoration: none;
-      margin-right: 10px;
-    }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
 
-    .icon-btn {
-      background: none;
-      border: none;
-      color: #64b5f6;
-      font-size: 1.5em;
-      cursor: pointer;
-    }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
 
-    .social-icons {
-      position: absolute;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      display: flex;
-      gap: 15px;
-    }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-    .social-icons a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 1.2em;
-      transition: color 0.3s ease;
-    }
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
 
-    .social-icons a:hover {
-      color: #64b5f6;
-    }
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            gap: 50px;
+        }
 
-    .main-content {
-      padding: 100px 20px 30px;
-      text-align: center;
-    }
+        .hero-content {
+            flex: 1;
+        }
 
-    .card {
-      margin: 30px auto;
-      padding: 20px;
-      background: #1a1f2b;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-      color: #e1e8ed;
-    }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
 
-    .card a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #64b5f6;
-      color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
+        .hero-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
 
-    .card a:hover {
-      background-color: #42a5f5;
-    }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    footer {
-      background: rgba(0, 0, 0, 0.8);
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #999;
-    }
-  </style>
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Expertise Section */
+        .expertise {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .expertise-card {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .expertise-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .expertise-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 50px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="canvas-container"></div>
+    <div id="canvas-container"></div>
 
-  <!-- Header -->
-  <header>
-    <div class="logo-container">
-      <div class="logo-image">
-        <img src="/api/logo.png" alt="Logo" />
-      </div>
-      <a href="#" class="logo">Godelomniverse</a>
-      <!-- Icon Button -->
-      <button class="icon-btn" title="Special Action">
-        <i class="fas fa-download"></i>
-      </button>
-    </div>
-    <!-- Social Icons -->
-    <div class="social-icons">
-      <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-twitter"></i></a>
-      <a href="https://linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
-    </div>
-  </header>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Godelomniverse</a>
+                <div class="nav-links">
+                    <a href="#expertise">Expertise</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <h1>Welcome to Godelomniverse</h1>
-    <p>
-      Exploring the edge of logic, computation, mathematics, and artificial intelligence.
-    </p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Exploring the Frontiers of Mathematics & AI</h1>
+                <p>A journey through Artificial Intelligence, Quantum Computing, Pure Mathematics, and Statistical Analysis</p>
+                <a href="#expertise" class="cta-button">Explore My Work</a>
+            </div>
+            <div class="hero-image">
+                <img src="/api/placeholder/400/400" alt="Professional portrait">
+            </div>
+        </div>
+    </section>
 
-    <!-- Google Drive Card -->
-    <div class="card">
-      <h3>Access My Shared Resources</h3>
-      <p>Download my personal research notes, datasets, and AI notebooks.</p>
-      <a href="https://drive.google.com/your-drive-link" target="_blank">
-        <i class="fas fa-folder-open"></i> Open Google Drive
-      </a>
-    </div>
-  </div>
+    <section id="expertise" class="expertise">
+        <div class="container">
+            <h2 class="section-title">Areas of Expertise</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>Artificial Intelligence</h3>
+                    <p>Exploring predictive analytics, machine learning models, and neural networks to solve complex problems and create intelligent systems.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Quantum Computing</h3>
+                    <p>Investigating quantum algorithms, quantum information theory, and their applications to computational problems beyond classical computing.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Pure Mathematics</h3>
+                    <p>Specializing in Abstract Algebra, Topology, Analysis, and Geometry with focus on theoretical foundations and mathematical structures.</p>
+                </div>
+                <div class="expertise-card">
+                    <h3>Statistical Analysis</h3>
+                    <p>Developing statistical models for data analysis, hypothesis testing, and predictive modeling across various domains including biostatistics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 Godelomniverse. All rights reserved.
-  </footer>
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>As a 23-year-old mathematics graduate currently pursuing a degree in Predictive Analytics and Artificial Intelligence, I am passionate about advancing the frontiers of technology through cutting-edge research. My key areas of interest include Artificial Intelligence, Quantum Computing, Pure Mathematics, and Quantitative Finance.</p>
+                    <p>I am also deeply intrigued by Biostatistics, where I aim to merge technology with biology to solve complex challenges. As a passionate math enthusiast with good hold in core fields such as Abstract Algebra, Topology, Analysis, Applied Mathematics, Statistical Analysis, and Geometry, I thrive on solving complex problems through mathematical thinking and visualization.</p>
+                    <p>My academic background enables me to approach challenges from both theoretical and applied perspectives, ensuring a robust understanding of advanced mathematical concepts. Driven by a desire to use my analytical and problem-solving skills, I am constantly exploring innovative solutions to tackle technological and scientific problems.</p>
+                    <p>With a solid foundation in math and a growing expertise in AI, I am committed to contributing to impactful advancements in both academia and industry.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- THREE.js Background -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById("canvas-container").appendChild(renderer.domElement);
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Godelomniverse. All rights reserved.</p>
+        </div>
+    </footer>
 
-    const geometry = new THREE.BufferGeometry();
-    const particles = 5000;
-    const positions = new Float32Array(particles * 3);
-    for (let i = 0; i < particles * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 20;
-    }
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    <script>
+        // Canvas setup for particle effect
+        const canvas = document.createElement('canvas');
+        document.getElementById('canvas-container').appendChild(canvas);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-    const material = new THREE.PointsMaterial({
-      color: 0x64b5f6,
-      size: 0.03,
-      transparent: true
-    });
+        // Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
 
-    const particleSystem = new THREE.Points(geometry, material);
-    scene.add(particleSystem);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
 
-    function animate() {
-      requestAnimationFrame(animate);
-      particleSystem.rotation.y += 0.0005;
-      particleSystem.rotation.x += 0.0002;
-      renderer.render(scene, camera);
-    }
+        // Particle system
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        
+        const posArray = new Float32Array(particlesCount * 3);
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 15;
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x2962ff,
+            transparent: true,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
 
-    animate();
+        // Camera position
+        camera.position.z = 5;
 
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  </script>
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            particlesMesh.rotation.x += 0.0005;
+            particlesMesh.rotation.y += 0.0005;
+            
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Resize event
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Add mouse interaction
+        document.addEventListener('mousemove', (event) => {
+            const mouseX = event.clientX / window.innerWidth - 0.5;
+            const mouseY = event.clientY / window.innerHeight - 0.5;
+            
+            particlesMesh.rotation.y = mouseX * 0.5;
+            particlesMesh.rotation.x = mouseY * 0.5;
+        });
+    </script>
 </body>
 </html>
 
