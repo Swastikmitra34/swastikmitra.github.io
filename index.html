@@ -1,130 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Godelomniverse</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <style>
-        /* Global Styles */
-        :root {
-            --primary-color: #1a237e;
-            --secondary-color: #0d47a1;
-            --accent-color: #2962ff;
-            --text-color: #f5f5f5;
-            --background-color: #121212;
-            --card-background: rgba(25, 25, 25, 0.85);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Godelomniverse</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
-        body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
+  <style>
+    /* Theme Colors */
+    :root {
+      --primary-color: #1a237e;
+      --secondary-color: #0d47a1;
+      --accent-color: #2962ff;
+      --text-color: #f5f5f5;
+      --background-color: #121212;
+      --card-background: rgba(25, 25, 25, 0.85);
+    }
 
-        /* Canvas for particle effect */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
 
-        /* Header */
-        header {
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    /* Canvas Background */
+    #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    /* Header */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 10;
+    }
 
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-        
-        /* Social Media Icons */
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-        
-        .social-icon:hover {
-            transform: translateY(-3px);
-            background-color: var(--accent-color);
-        }
-        
-        .social-icon a {
-            color: white;
-            font-size: 1.2rem;
-            text-decoration: none;
-        }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
+    /* Logo */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+    }
 
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+    .logo-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
 
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
+    .logo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    /* Navigation Links */
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-3px);
+      background-color: var(--accent-color);
+    }
+
+    .social-icon i {
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .social-icons {
+        margin-top: 10px;
+      }
+    }
 
         /* Hero Section */
         .hero {
@@ -178,6 +212,72 @@
         }
 
         .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Resources Section */
+        .resources {
+            padding: 100px 0;
+        }
+        
+        .resources-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .resource-card {
+            width: 300px;
+            height: 350px;
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .resource-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .resource-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .resource-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .resource-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .resource-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -346,31 +446,33 @@
 <body>
     <div id="canvas-container"></div>
 
-    <header>
-        <div class="container">
-            <nav>
-               <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-        <!-- Logo Section -->
-        <div class="logo" style="display: flex; align-items: center;">
-            <img src="asset/bc39cb14-6f4c-4deb-9e15-11a6fae2b38d.jpg" alt="" style="width: 40px; margin-right: 10px;">
-            <a href="#" style="text-decoration: none; font-weight: bold; font-size: 20px; color: #000;">Godelomniverse</a>
-                    <a href="#" class="logo">Godelomniverse</a>
-                </div>
-                <div class="nav-links">
-                    <a href="#expertise">Expertise</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="social-icons" style="display: flex; gap: 15px;">
-            <a href="https://www.facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.twitter.com" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.linkedin.com" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.github.com" target="_blank" class="social-icon"><i class="fab fa-github"></i></a></div>
-        </div>
-            </nav>
-        </div>
-    </header>
+   
+<header>
+    <div class="header-container">
+        <!-- Logo -->
+        <a href="#" class="logo">
+            <img src="asset/bc39cb14-6f4c-4deb-9e15-11a6fae2b38d.jpg" alt="Godelomniverse Logo">
+            <span class="logo-text">Godelomniverse</span>
+        </a>
 
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            <a href="#expertise">Expertise</a>
+            <a href="#resources">Resources</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+</header>
+    
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -521,6 +623,18 @@
             particlesMesh.rotation.y = mouseX * 0.5;
             particlesMesh.rotation.x = mouseY * 0.5;
         });
+
+         // Customizable links - Edit these URLs to your actual resources
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set your resource URLs here
+            const mathPdfUrl = "https://yoursite.com/math-pdfs"; // Replace with your actual URL
+            const handwrittenNotesUrl = "https://yoursite.com/handwritten-notes"; // Replace with your actual URL
+            
+            // Update the href attributes
+            document.getElementById('math-pdf-link').href = mathPdfUrl;
+            document.getElementById('handwritten-notes-link').href = handwrittenNotesUrl;
+        });
+        
     </script>
 </body>
 </html>
