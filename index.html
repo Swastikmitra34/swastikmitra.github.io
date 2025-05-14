@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Godelomniverse</title>
-
-  <!-- External Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godelomniverse</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        <style>
     /* Theme Colors */
     :root {
       --primary-color: #1a237e;
@@ -160,6 +159,25 @@
       }
     }
 
+  <!-- Optional Particle Background -->
+  <div id="canvas-container"></div>
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
         /* Hero Section */
         .hero {
             display: flex;
@@ -212,72 +230,6 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Resources Section */
-        .resources {
-            padding: 100px 0;
-        }
-        
-        .resources-container {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .resource-card {
-            width: 300px;
-            height: 350px;
-            background-color: var(--card-background);
-            border-radius: 15px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .resource-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .resource-icon {
-            font-size: 3rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-        }
-        
-        .resource-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-        
-        .resource-card p {
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .resource-button {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(to right, var(--accent-color), #64b5f6);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .resource-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -347,7 +299,71 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Contact Section */
+        /* Resources Section */
+        .resources {
+            padding: 100px 0;
+        }
+        
+        .resources-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .resource-card {
+            width: 300px;
+            height: 350px;
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .resource-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .resource-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .resource-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .resource-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--accent-color), #64b5f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .resource-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
         .contact {
             padding: 100px 0;
         }
@@ -445,34 +461,36 @@
 </head>
 <body>
     <div id="canvas-container"></div>
-
-   
-<header>
-    <div class="header-container">
-        <!-- Logo -->
-        <a href="#" class="logo">
-            <img src="assets/logo.png" alt="Logo" style="width: 40px;">
-             <span class="logo-text">Godelomniverse</span>
+  <header>
+    <div class="container">
+      <nav>
+        <!-- Logo Section -->
+        <a href="#" class="logo-container">
+          <div class="logo-image">
+           <img src="assets/logo.png" alt="Godel Omniverse Logo" style="width: 40px;">
+          </div>
+          <span class="logo-text">Godelomniverse</span>
         </a>
 
         <!-- Navigation Links -->
         <div class="nav-links">
-            <a href="#expertise">Expertise</a>
-            <a href="#resources">Resources</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </div>
 
-        <!-- Social Icons -->
+        <!-- Social Media -->
         <div class="social-icons">
-            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i></a>
+          <div class="social-icon"><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></div>
+          <div class="social-icon"><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></div>
+          <div class="social-icon"><a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a></div>
+          <div class="social-icon"><a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i></a></div>
         </div>
+      </nav>
     </div>
-</header>
-    
+  </header>
+
+
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -523,6 +541,30 @@
             </div>
         </div>
     </section>
+
+  <section id="resources" class="resources">
+        <div class="container">
+            <h2 class="section-title">Resources</h2>
+            <div class="resources-container">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Mathematics PDF Notes</h3>
+                    <p>Access my comprehensive collection of mathematical resources covering Abstract Algebra, Topology, Analysis, Quantum Computing, and more.</p>
+                    <a href="#" class="resource-button" id="math-pdf-link">Access Notes</a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <h3>Handwritten Notes</h3>
+                    <p>Browse through my personal handwritten notes on various mathematical and computational topics with detailed derivations and explanations.</p>
+                    <a href="#" class="resource-button" id="handwritten-notes-link">Access Notes</a>
+                </div>
+            </div>
+        </div>
 
     <section id="contact" class="contact">
         <div class="container">
@@ -623,8 +665,8 @@
             particlesMesh.rotation.y = mouseX * 0.5;
             particlesMesh.rotation.x = mouseY * 0.5;
         });
-
-         // Customizable links - Edit these URLs to your actual resources
+        
+        // Customizable links - Edit these URLs to your actual resources
         document.addEventListener('DOMContentLoaded', function() {
             // Set your resource URLs here
             const mathPdfUrl = "https://yoursite.com/math-pdfs"; // Replace with your actual URL
@@ -634,9 +676,6 @@
             document.getElementById('math-pdf-link').href = mathPdfUrl;
             document.getElementById('handwritten-notes-link').href = handwrittenNotesUrl;
         });
-        
     </script>
 </body>
 </html>
-
-
