@@ -1,257 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Godelomniverse</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <title>Godelomniverse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Font Awesome for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <style>
+    /* Base styles omitted for brevity, continue from your previous styles */
 
-        body {
-            background: #0d1117;
-            color: #e1e8ed;
-            overflow-x: hidden;
-        }
+    body {
+      margin: 0;
+      background: #0d1117;
+      color: #e1e8ed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-        }
+    #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
 
-        header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-        }
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
 
-        .logo-image {
-            width: 50px;
-            height: 50px;
-            margin-right: 15px;
-        }
+    .logo-image {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
 
-        .logo-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
+    .logo-image img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-        .logo {
-            font-size: 1.8em;
-            color: #64b5f6;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #64b5f6;
+      text-decoration: none;
+      margin-right: 10px;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
+    .icon-btn {
+      background: none;
+      border: none;
+      color: #64b5f6;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
 
-        nav a {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 1em;
-            transition: color 0.3s ease;
-        }
+    .social-icons {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 15px;
+    }
 
-        nav a:hover {
-            color: #64b5f6;
-        }
+    .social-icons a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 1.2em;
+      transition: color 0.3s ease;
+    }
 
-        .main-content {
-            padding: 100px 20px 60px;
-            text-align: center;
-        }
+    .social-icons a:hover {
+      color: #64b5f6;
+    }
 
-        h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-        }
+    .main-content {
+      padding: 100px 20px 30px;
+      text-align: center;
+    }
 
-        p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
+    .card {
+      margin: 30px auto;
+      padding: 20px;
+      background: #1a1f2b;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+      color: #e1e8ed;
+    }
 
-        .image-section {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 40px 20px;
-        }
+    .card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #64b5f6;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
 
-        .image-section img {
-            width: 300px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
-        }
+    .card a:hover {
+      background-color: #42a5f5;
+    }
 
-        .image-section img:hover {
-            transform: scale(1.05);
-        }
-
-        .about-me {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        .about-me img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-
-        .about-text {
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        .about-text h2 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: #64b5f6;
-        }
-
-        .about-text p {
-            font-size: 1.1em;
-            line-height: 1.6em;
-            color: #ccc;
-        }
-
-        footer {
-            background: rgba(0, 0, 0, 0.8);
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
-            color: #999;
-        }
-
-        @media screen and (max-width: 768px) {
-            .about-me {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #999;
+    }
+  </style>
 </head>
 <body>
+  <div id="canvas-container"></div>
 
-<div id="canvas-container"></div>
-
-<header>
+  <!-- Header -->
+  <header>
     <div class="logo-container">
-        <div class="logo-image">
-            <img src="/api/logo.png" alt="Logo">
-        </div>
-        <a href="#" class="logo">Godelomniverse</a>
+      <div class="logo-image">
+        <img src="/api/logo.png" alt="Logo" />
+      </div>
+      <a href="#" class="logo">Godelomniverse</a>
+      <!-- Icon Button -->
+      <button class="icon-btn" title="Special Action">
+        <i class="fas fa-download"></i>
+      </button>
     </div>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">About Me</a></li>
-        </ul>
-    </nav>
-</header>
+    <!-- Social Icons -->
+    <div class="social-icons">
+      <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </header>
 
-<div class="main-content">
+  <!-- Main Content -->
+  <div class="main-content">
     <h1>Welcome to Godelomniverse</h1>
-    <p>Exploring the edge of logic, computation, mathematics, and artificial intelligence. Join the odyssey beyond Gödel's incompleteness into the realm of infinite innovation.</p>
-</div>
+    <p>
+      Exploring the edge of logic, computation, mathematics, and artificial intelligence.
+    </p>
 
-<div class="image-section">
-    <img src="/images/sample1.jpg" alt="Sample 1">
-    <img src="/images/sample2.jpg" alt="Sample 2">
-    <img src="/images/sample3.jpg" alt="Sample 3">
-</div>
-
-<div class="about-me">
-    <img src="/images/your-photo.jpg" alt="Your Image">
-    <div class="about-text">
-        <h2>About Me</h2>
-        <p>Hi, I'm Swastik Mitra — a passionate mathematician and AI researcher on a journey to explore the mathematical foundation of intelligence. My mission is to build powerful systems grounded in logic, creativity, and ethics to shape the future of human-machine collaboration.</p>
+    <!-- Google Drive Card -->
+    <div class="card">
+      <h3>Access My Shared Resources</h3>
+      <p>Download my personal research notes, datasets, and AI notebooks.</p>
+      <a href="https://drive.google.com/your-drive-link" target="_blank">
+        <i class="fas fa-folder-open"></i> Open Google Drive
+      </a>
     </div>
-</div>
+  </div>
 
-<footer>
+  <!-- Footer -->
+  <footer>
     &copy; 2025 Godelomniverse. All rights reserved.
-</footer>
+  </footer>
 
-<!-- Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-<script>
+  <!-- THREE.js Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <script>
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 5;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('canvas-container').appendChild(renderer.domElement);
+    document.getElementById("canvas-container").appendChild(renderer.domElement);
 
     const geometry = new THREE.BufferGeometry();
     const particles = 5000;
     const positions = new Float32Array(particles * 3);
     for (let i = 0; i < particles * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 20;
+      positions[i] = (Math.random() - 0.5) * 20;
     }
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
     const material = new THREE.PointsMaterial({
-        color: 0x64b5f6,
-        size: 0.03,
-        transparent: true
+      color: 0x64b5f6,
+      size: 0.03,
+      transparent: true
     });
 
     const particleSystem = new THREE.Points(geometry, material);
     scene.add(particleSystem);
 
     function animate() {
-        requestAnimationFrame(animate);
-        particleSystem.rotation.y += 0.0005;
-        particleSystem.rotation.x += 0.0002;
-        renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+      particleSystem.rotation.y += 0.0005;
+      particleSystem.rotation.x += 0.0002;
+      renderer.render(scene, camera);
     }
+
     animate();
 
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
     });
-</script>
-
+  </script>
 </body>
 </html>
+
 
