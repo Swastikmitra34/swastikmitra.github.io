@@ -6,8 +6,7 @@
     <title>Godelomniverse</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
         /* Global Styles */
         :root {
@@ -60,10 +59,54 @@
             align-items: center;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .logo {
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-color);
+        }
+        
+        .social-icon a {
+            color: white;
+            font-size: 1.2rem;
             text-decoration: none;
         }
 
@@ -82,23 +125,6 @@
         .nav-links a:hover {
             color: var(--accent-color);
         }
-
-        /* Style the social media icons */
-.social-icons {
-    display: flex;
-    gap: 15px;
-}
-
-.social-icon {
-    color: var(--text-color);
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.social-icon:hover {
-    color: var(--accent-color);
-}
 
         /* Hero Section */
         .hero {
@@ -310,36 +336,40 @@
             .nav-links {
                 display: none;
             }
+            
+            .social-icons {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div id="canvas-container"></div>
 
-   <header>
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-        <!-- Logo Section -->
-        <div class="logo" style="display: flex; align-items: center;">
-            <img src="asset/bc39cb14-6f4c-4deb-9e15-11a6fae2b38d.jpg" alt="Godelomniverse Logo" style="width: 40px; margin-right: 10px;">
-            <a href="#" style="text-decoration: none; font-weight: bold; font-size: 20px; color: #000;">Godelomniverse</a>
-        </div>
-
-        <!-- Social Media Icons -->
-        <div class="social-icons" style="display: flex; gap: 15px;">
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo-image">
+                        <!-- Logo placeholder - replace with your actual logo -->
+                        <img id="site-logo" src="" alt="Godelomniverse Logo">
+                    </div>
+                    <a href="#" class="logo">Godelomniverse</a>
+                </div>
+                <div class="nav-links">
+                    <a href="#expertise">Expertise</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="social-icons" style="display: flex; gap: 15px;">
             <a href="https://www.facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.twitter.com" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
             <a href="https://www.linkedin.com" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.github.com" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="https://www.github.com" target="_blank" class="social-icon"><i class="fab fa-github"></i></a></div>
         </div>
-    </div>
-
-   <nav class="nav-links" style="display: flex; flex-direction: column; align-items: center; padding: 10px;">
-    <a href="#expertise" style="margin: 10px 0;">Expertise</a>
-    <a href="#about" style="margin: 10px 0;">About</a>
-    <a href="#contact" style="margin: 10px 0;">Contact</a>
- </nav>
-</header>
-
+            </nav>
+        </div>
+    </header>
 
     <section class="hero">
         <div class="container">
@@ -414,9 +444,6 @@
             </div>
         </div>
     </section>
-    
-</header>
-
 
     <footer>
         <div class="container">
